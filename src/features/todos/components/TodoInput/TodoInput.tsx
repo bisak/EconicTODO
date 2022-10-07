@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Color } from '../../../../../common/config/Color';
+import { Color } from '../../../../common/config/Color';
 
 type TodoInputProps = {
   defaultValue?: string;
@@ -25,9 +25,10 @@ export const TodoInput: React.FC<TodoInputProps> = ({ onSubmit, defaultValue }) 
     <View style={styles.row}>
       <TextInput
         multiline
+        autoFocus
         style={styles.textInput}
         cursorColor={Color.Lightest}
-        placeholder="What has to be done"
+        placeholder="What needs to be done?"
         value={textInputValue}
         onChangeText={handleValueChange}
         maxLength={300}
