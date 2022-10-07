@@ -1,17 +1,43 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
+import { AddTodoFAB } from '../components/AddTodoFAB';
+import { CompletedStats } from '../components/CompletedStats';
+import { FilterDropDown } from '../components/FilterDropDown';
 import { TodoCardComponent } from '../components/TodoCardComponent';
-import { storeTodosMock } from '../store/__mocks__/storeTodos.mock';
+import { useTodosList } from '../hooks/useTodosList';
 
-export const TodosListScreen = () => {
+export const TodosListScreen: React.FC = () => {
+  const {
+    todoItems,
+    completedTodosCount,
+    allTodosCount,
+    filterValue,
+    setFilterValue,
+    handleAddTodoPress,
+    handleEditTodo,
+    handleCompleteTodo,
+    handleDeleteTodo,
+  } = useTodosList();
+
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <TodoCardComponent content={storeTodosMock[0].content} isDone={false} onPress={() => {}} />
-      <TodoCardComponent content={storeTodosMock[1].content} isDone={false} onPress={() => {}} />
-      <TodoCardComponent content={storeTodosMock[2].content} isDone={false} onPress={() => {}} />
-      <TodoCardComponent content={storeTodosMock[0].content} isDone={false} onPress={() => {}} />
-      <TodoCardComponent content={storeTodosMock[0].content} isDone={false} onPress={() => {}} />
-      <TodoCardComponent content={storeTodosMock[0].content} isDone={false} onPress={() => {}} />
-    </ScrollView>
+    <>
+      <FilterDropDown onChange={setFilterValue} value={filterValue} />
+      <CompletedStats completed={completedTodosCount} total={allTodosCount} />
+
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {todoItems.map(({ content, isDone, id }) => (
+          <TodoCardComponent
+            key={id}
+            content={content}
+            isDone={isDone}
+            onDeletePress={() => handleDeleteTodo(id)}
+            onEditPress={() => handleEditTodo(id)}
+            onDonePress={() => handleCompleteTodo(id, !isDone)}
+          />
+        ))}
+      </ScrollView>
+
+      <AddTodoFAB onPress={handleAddTodoPress} />
+    </>
   );
 };

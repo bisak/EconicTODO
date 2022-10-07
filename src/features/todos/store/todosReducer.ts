@@ -1,7 +1,7 @@
 import { CaseReducer, createReducer, EntityState, nanoid, PayloadAction } from '@reduxjs/toolkit';
 import { Todo } from '../model/Todo';
-import { AddTodoPayload, DeleteTodoPayload, EditTodoPayload, MarkTodoDonePayload } from './model/ActionTypes';
-import { addTodoAction, deleteTodoAction, editTodoAction, markTodoDoneAction } from './todosActions';
+import { AddTodoPayload, DeleteTodoPayload, EditTodoPayload, MarkTodoDonePayload } from './model/TodoActionsPayload';
+import { addTodoAction, deleteTodoAction, editTodoAction, completeTodoAction } from './todosActions';
 import { todosAdapter } from './todosAdapter';
 
 export type TodosState = EntityState<Todo>;
@@ -28,14 +28,14 @@ const deleteTodoReducer: CaseReducer<TodosState, PayloadAction<DeleteTodoPayload
   todosAdapter.updateOne(state, { id, changes: { isDeleted: true } });
 };
 
-const markTodoDoneReducer: CaseReducer<TodosState, PayloadAction<MarkTodoDonePayload>> = (state, { payload }) => {
-  const { id } = payload;
-  todosAdapter.updateOne(state, { id, changes: { isDone: true } });
+const completeTodoReducer: CaseReducer<TodosState, PayloadAction<MarkTodoDonePayload>> = (state, { payload }) => {
+  const { id, isDone } = payload;
+  todosAdapter.updateOne(state, { id, changes: { isDone } });
 };
 
 export const todosReducer = createReducer(initialState, builder => {
   builder.addCase(addTodoAction, addTodoReducer);
   builder.addCase(editTodoAction, editTodoReducer);
   builder.addCase(deleteTodoAction, deleteTodoReducer);
-  builder.addCase(markTodoDoneAction, markTodoDoneReducer);
+  builder.addCase(completeTodoAction, completeTodoReducer);
 });

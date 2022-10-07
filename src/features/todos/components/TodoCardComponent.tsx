@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
+import { Color } from '../../../common/config/Color';
 import { ButtonIcon, IconName } from './ButtonIcon';
 
 type CardsComponentsProps = {
@@ -19,11 +20,11 @@ export const TodoCardComponent: React.FC<CardsComponentsProps> = ({
 }) => {
   return (
     <View style={styles.card}>
-      <Text style={isDone ? [styles.content, styles.strikeThroughContent] : styles.content}>{content}</Text>
+      <Text style={isDone ? [styles.content, styles.doneContent] : styles.content}>{content}</Text>
       <View style={styles.actionsContainer}>
-        <ButtonIcon iconName={IconName.delete} onPress={onDeletePress} />
-        <ButtonIcon iconName={IconName.edit} onPress={onEditPress} />
         <ButtonIcon iconName={IconName.done} onPress={onDonePress} />
+        <ButtonIcon iconName={IconName.edit} onPress={onEditPress} />
+        <ButtonIcon iconName={IconName.delete} onPress={onDeletePress} />
       </View>
     </View>
   );
@@ -34,21 +35,24 @@ const styles = StyleSheet.create({
     flex: 1,
     elevation: 1,
     minHeight: 100,
-    backgroundColor: '#232d36',
+    backgroundColor: Color.CardBackground,
     marginHorizontal: 20,
     borderRadius: 8,
-    padding: 12,
+    padding: 18,
     margin: 8,
   },
   actionsContainer: {
-    flexDirection: 'row-reverse',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     marginTop: 12,
+    flex: 1,
   },
   content: {
     fontSize: 16,
   },
-  strikeThroughContent: {
+  doneContent: {
     textDecorationLine: 'line-through',
     textDecorationStyle: 'solid',
+    opacity: 0.5,
   },
 });
