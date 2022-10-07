@@ -1,4 +1,5 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { ScreenName } from '../../config/ScreenName';
 
 type EditTodoParams = {
   todoId: string;
@@ -10,4 +11,4 @@ export type StackNavParamsList = {
   EditTodo: EditTodoParams;
 };
 
-export type EditTodoScreenProps = NativeStackScreenProps<StackNavParamsList, 'EditTodo'>;
+export type EditTodoScreenProps = NativeStackScreenProps<StackNavParamsList, ScreenName.EditTodo>;

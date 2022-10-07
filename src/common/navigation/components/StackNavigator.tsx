@@ -1,10 +1,10 @@
 import React from 'react';
 import { StackNavParamsList } from '../model/NavigationTypes';
-import { TodosListScreen } from '../../../features/todos/screens/TodosListScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { AddTodoScreen } from '../../../features/todos/screens/AddTodoScreen';
-import { EditTodoScreen } from '../../../features/todos/screens/EditTodoScreen';
-import { ScreenName } from '../model/ScreenName';
+import { AddTodoScreen } from '../../../features/todos/add-todo/screen/AddTodoScreen';
+import { EditTodoScreen } from '../../../features/todos/edit-todo/screen/EditTodoScreen';
+import { ScreenName } from '../../config/ScreenName';
+import { TodosListScreen } from '../../../features/todos/list-todos/screen/TodosListScreen';
 
 const Stack = createNativeStackNavigator<StackNavParamsList>();
 

@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Color } from '../../../common/config/Color';
+import { Color } from '../../../../../common/config/Color';
 
 type TodoInputProps = {
   defaultValue?: string;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { TodoInput } from '../components/TodoInput';
+import { TodoInput } from '../components/TodoInput/TodoInput';
 import { useAddTodo } from '../hooks/useAddTodo';
 
 export const AddTodoScreen: React.FC = () => {

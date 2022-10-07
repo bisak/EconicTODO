@@ -2,13 +2,13 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useState } from 'react';
 import { Alert } from 'react-native';
-import { StackNavParamsList } from '../../../common/navigation/model/NavigationTypes';
-import { ScreenName } from '../../../common/navigation/model/ScreenName';
-import { useAppDispatch } from '../../../common/store/hook/useAppDispatch';
-import { useAppSelector } from '../../../common/store/hook/useAppSelector';
+import { StackNavParamsList } from '../../../../common/navigation/model/NavigationTypes';
+import { ScreenName } from '../../../../common/config/ScreenName';
+import { useAppDispatch } from '../../../../common/store/hook/useAppDispatch';
+import { useAppSelector } from '../../../../common/store/hook/useAppSelector';
+import { completeTodoAction, deleteTodoAction } from '../../store/todosActions';
+import { selectCompletedTodosCount, selectFilteredTodos, selectVisibleTodosCount } from '../../store/todosSelectors';
 import { TodoFilter } from '../model/TodoFilter';
-import { completeTodoAction, deleteTodoAction } from '../store/todosActions';
-import { selectCompletedTodosCount, selectFilteredTodos, selectVisibleTodosCount } from '../store/todosSelectors';
 
 export const useTodosList = () => {
   const { navigate } = useNavigation<NativeStackNavigationProp<StackNavParamsList, ScreenName.TodosList>>();

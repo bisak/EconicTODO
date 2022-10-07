@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { Color } from '../../../common/config/Color';
+import { Color } from '../../../../common/config/Color';
 import { ButtonIcon, IconName } from './ButtonIcon';
 
 type CardsComponentsProps = {
