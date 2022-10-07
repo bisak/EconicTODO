@@ -18,5 +18,6 @@ const styles = StyleSheet.create({
   statsText: {
     textAlign: 'right',
     marginHorizontal: 20,
+    padding: 4,
   },
 });

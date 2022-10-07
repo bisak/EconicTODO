@@ -7,6 +7,7 @@ export enum IconName {
   edit = 'edit',
   delete = 'delete',
   done = 'done',
+  removeDone = 'remove-done',
 }
 
 type ButtonIconProps = {
@@ -15,6 +16,7 @@ type ButtonIconProps = {
 };
 
 const iconToColorMap: Record<IconName, Color> = {
+  'remove-done': Color.Green,
   done: Color.Green,
   delete: Color.Red,
   edit: Color.Yellow,

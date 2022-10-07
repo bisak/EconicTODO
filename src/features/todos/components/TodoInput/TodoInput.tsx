@@ -1,41 +1,48 @@
 import React, { useCallback, useState } from 'react';
-import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Color } from '../../../../common/config/Color';
 
 type TodoInputProps = {
   defaultValue?: string;
   onSubmit: (textInputValue: string) => void;
+  maxCharacters?: number;
 };
 
-export const TodoInput: React.FC<TodoInputProps> = ({ onSubmit, defaultValue }) => {
+export const TodoInput: React.FC<TodoInputProps> = ({ onSubmit, defaultValue, maxCharacters = 300 }) => {
   const [textInputValue, setTextInputValue] = useState(defaultValue);
+  const trimmedContent = textInputValue?.trim();
 
   const handleValueChange = useCallback((newTodo: string) => {
     setTextInputValue(newTodo);
   }, []);
 
   const handleSubmit = useCallback(() => {
-    if (textInputValue) {
-      onSubmit(textInputValue);
+    if (trimmedContent) {
+      onSubmit(trimmedContent);
     }
-  }, [onSubmit, textInputValue]);
+  }, [onSubmit, trimmedContent]);
 
   return (
-    <View style={styles.row}>
-      <TextInput
-        multiline
-        autoFocus
-        style={styles.textInput}
-        cursorColor={Color.Lightest}
-        placeholder="What needs to be done?"
-        value={textInputValue}
-        onChangeText={handleValueChange}
-        maxLength={300}
-      />
-      <TouchableOpacity disabled={!textInputValue} style={styles.submitButton} onPress={handleSubmit}>
-        <Icon name="send" size={32} />
-      </TouchableOpacity>
+    <View style={styles.container}>
+      <View style={styles.row}>
+        <TextInput
+          multiline
+          autoFocus
+          style={styles.textInput}
+          cursorColor={Color.Lightest}
+          placeholder="What needs to be done?"
+          value={textInputValue}
+          onChangeText={handleValueChange}
+          maxLength={maxCharacters}
+        />
+        <TouchableOpacity disabled={!trimmedContent} style={styles.submitButton} onPress={handleSubmit}>
+          <Icon name="send" size={32} />
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.charactersLeft}>
+        {textInputValue?.length || 0} of {maxCharacters}
+      </Text>
     </View>
   );
 };
@@ -57,6 +64,13 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  container: {
     marginHorizontal: 4,
+  },
+  charactersLeft: {
+    textAlign: 'right',
+    fontSize: 12,
+    padding: 4,
   },
 });

@@ -3,6 +3,7 @@ import { ScrollView } from 'react-native';
 import { AddTodoFAB } from '../components/AddTodoFAB';
 import { CompletedStats } from '../components/CompletedStats';
 import { FilterDropDown } from '../components/FilterDropDown';
+import { ScrollBottomBuffer } from '../components/ScrollBottomBuffer';
 import { TodoCardComponent } from '../components/TodoCardComponent';
 import { useTodosList } from '../hooks/useTodosList';
 
@@ -35,6 +36,7 @@ export const TodosListScreen: React.FC = () => {
             onDonePress={() => handleCompleteTodo(id, !isDone)}
           />
         ))}
+        <ScrollBottomBuffer />
       </ScrollView>
 
       <AddTodoFAB onPress={handleAddTodoPress} />

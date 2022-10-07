@@ -22,7 +22,7 @@ export const TodoCardComponent: React.FC<CardsComponentsProps> = ({
     <View style={styles.card}>
       <Text style={isDone ? [styles.content, styles.doneContent] : styles.content}>{content}</Text>
       <View style={styles.actionsContainer}>
-        <ButtonIcon iconName={IconName.done} onPress={onDonePress} />
+        <ButtonIcon iconName={isDone ? IconName.removeDone : IconName.done} onPress={onDonePress} />
         <ButtonIcon iconName={IconName.edit} onPress={onEditPress} />
         <ButtonIcon iconName={IconName.delete} onPress={onDeletePress} />
       </View>
