@@ -1,5 +1,5 @@
 import { CaseReducer, createReducer, EntityState, nanoid, PayloadAction } from '@reduxjs/toolkit';
-import { Todo } from '../model/Todo';
+import { Todo } from './model/Todo';
 import { AddTodoPayload, DeleteTodoPayload, EditTodoPayload, MarkTodoDonePayload } from './model/TodoActionsPayload';
 import { addTodoAction, deleteTodoAction, editTodoAction, completeTodoAction } from './todosActions';
 import { todosAdapter } from './todosAdapter';

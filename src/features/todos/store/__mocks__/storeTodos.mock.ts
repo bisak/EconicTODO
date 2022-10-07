@@ -1,5 +1,5 @@
 import { nanoid } from '@reduxjs/toolkit';
-import { Todo } from '../../model/Todo';
+import { Todo } from '../model/Todo';
 
 export const storeTodosMock: Todo[] = [
   {
