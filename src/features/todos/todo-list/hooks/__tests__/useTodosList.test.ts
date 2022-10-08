@@ -61,25 +61,25 @@ describe('useTodosList', () => {
       //@ts-ignore
       .mockImplementation((title, message, callbackOrButtons) => callbackOrButtons[1].onPress());
 
-    it('completes a todo when handleCompleteTodo is called with true', () => {
+    it('completes a todo when handleCompleteTodo is called with true', async () => {
       const { result } = appRenderHook(() => useTodosList());
-      act(() => {
+      await act(() => {
         result.current.handleCompleteTodo('1', true);
       });
       expect(result.current.todoItems[0].isDone).toBeTruthy();
     });
 
-    it('un-completes a todo when handleCompleteTodo is called with false', () => {
+    it('un-completes a todo when handleCompleteTodo is called with false', async () => {
       const { result } = appRenderHook(() => useTodosList());
-      act(() => {
+      await act(() => {
         result.current.handleCompleteTodo('2', false);
       });
       expect(result.current.todoItems[1].isDone).toBeFalsy();
     });
 
-    it('deletes a todo when handleDeleteTodo is called', () => {
+    it('deletes a todo when handleDeleteTodo is called', async () => {
       const { result } = appRenderHook(() => useTodosList());
-      act(() => {
+      await act(() => {
         result.current.handleDeleteTodo('2');
       });
       expect(result.current.todoItems).toHaveLength(1);

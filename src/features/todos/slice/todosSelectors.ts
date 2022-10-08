@@ -5,11 +5,8 @@ import { todosAdapter } from './todosAdapter';
 
 const selectTodosState = (state: RootState) => state.todos;
 
-export const {
-  selectById: selectTodoById,
-  selectAll: selectAllTodos,
-  selectTotal: selectTodosCount,
-} = todosAdapter.getSelectors<RootState>(selectTodosState);
+export const { selectById: selectTodoById, selectAll: selectAllTodos } =
+  todosAdapter.getSelectors<RootState>(selectTodosState);
 
 const selectVisibleTodos = createSelector(selectAllTodos, storeTodos =>
   storeTodos.filter(({ isDeleted }) => !isDeleted),

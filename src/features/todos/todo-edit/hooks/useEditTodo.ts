@@ -10,19 +10,21 @@ import { useAppSelector } from '../../../../common/store/hook/useAppSelector';
 
 export const useEditTodo = () => {
   const { goBack, canGoBack } = useNavigation<NativeStackNavigationProp<StackNavParamsList, ScreenName.EditTodo>>();
-  const { params } = useRoute<RouteProp<StackNavParamsList, ScreenName.EditTodo>>();
+  const {
+    params: { todoId },
+  } = useRoute<RouteProp<StackNavParamsList, ScreenName.EditTodo>>();
 
-  const todoItem = useAppSelector(state => selectTodoById(state, params.todoId));
+  const todoItem = useAppSelector(state => selectTodoById(state, todoId));
   const dispatch = useAppDispatch();
 
   const handleEditTodo = useCallback(
     (content: string) => {
-      dispatch(editTodoAction({ content, id: params.todoId }));
+      dispatch(editTodoAction({ content, id: todoId }));
       if (canGoBack()) {
         goBack();
       }
     },
-    [canGoBack, dispatch, goBack, params.todoId],
+    [canGoBack, dispatch, goBack, todoId],
   );
 
   return { handleEditTodo, todoItem };
