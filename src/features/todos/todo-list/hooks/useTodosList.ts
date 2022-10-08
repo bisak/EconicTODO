@@ -1,36 +1,19 @@
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useCallback, useState } from 'react';
 import { Alert } from 'react-native';
-import { StackNavParamsList } from '../../../../common/navigation/model/NavigationTypes';
-import { ScreenName } from '../../../../common/config/ScreenName';
 import { useAppDispatch } from '../../../../common/store/hook/useAppDispatch';
 import { useAppSelector } from '../../../../common/store/hook/useAppSelector';
-import { completeTodoAction, deleteTodoAction } from '../../store/todosActions';
-import { selectCompletedTodosCount, selectFilteredTodos, selectVisibleTodosCount } from '../../store/todosSelectors';
+import { completeTodoAction, deleteTodoAction } from '../../slice/todosActions';
+import { selectCompletedTodosCount, selectFilteredTodos, selectVisibleTodosCount } from '../../slice/todosSelectors';
 import { TodoFilter } from '../model/TodoFilter';
 
-export const useTodosList = () => {
-  const { navigate } = useNavigation<NativeStackNavigationProp<StackNavParamsList, ScreenName.TodosList>>();
-
-  const [filterValue, setFilterValue] = useState(TodoFilter.All);
+export const useTodosList = (defaultFilter = TodoFilter.All) => {
+  const [filterValue, setFilterValue] = useState(defaultFilter);
 
   const todoItems = useAppSelector(selectFilteredTodos(filterValue));
   const completedTodosCount = useAppSelector(selectCompletedTodosCount);
   const allTodosCount = useAppSelector(selectVisibleTodosCount);
 
   const dispatch = useAppDispatch();
-
-  const handleAddTodoPress = useCallback(() => {
-    navigate(ScreenName.AddTodo);
-  }, [navigate]);
-
-  const handleEditTodo = useCallback(
-    (todoId: string) => {
-      navigate(ScreenName.EditTodo, { todoId });
-    },
-    [navigate],
-  );
 
   const handleDeleteTodo = useCallback(
     (todoId: string) => {
@@ -58,9 +41,7 @@ export const useTodosList = () => {
     allTodosCount,
     filterValue,
     setFilterValue,
-    handleAddTodoPress,
     handleDeleteTodo,
-    handleEditTodo,
     handleCompleteTodo,
   };
 };

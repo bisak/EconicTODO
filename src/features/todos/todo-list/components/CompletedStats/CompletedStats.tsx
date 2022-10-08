@@ -4,15 +4,14 @@ import React from 'react';
 type CompletedStatsProps = {
   completed: number;
   total: number;
+  testID?: string;
 };
 
-export const CompletedStats: React.FC<CompletedStatsProps> = ({ total, completed }) => {
-  return (
-    <Text style={styles.statsText}>
-      Completed {completed} of {total}
-    </Text>
-  );
-};
+export const CompletedStats: React.FC<CompletedStatsProps> = ({ total, completed, testID }) => (
+  <Text testID={testID} style={styles.statsText}>
+    Completed {completed} of {total}
+  </Text>
+);
 
 const styles = StyleSheet.create({
   statsText: {

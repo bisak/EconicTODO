@@ -1,11 +1,21 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { AddTodoFAB } from '../components/AddTodoFAB';
-import { CompletedStats } from '../components/CompletedStats';
-import { FilterDropDown } from '../components/FilterDropDown';
-import { ScrollBottomBuffer } from '../components/ScrollBottomBuffer';
-import { TodoCardComponent } from '../components/TodoCardComponent';
+import { AddFAB } from '../components/AddFAB/AddFAB';
+import { CompletedStats } from '../components/CompletedStats/CompletedStats';
+import { FilterDropDown } from '../components/FilterDropDown/FilterDropDown';
+import { ScrollBottomBuffer } from '../components/ScrollBottomBuffer/ScrollBottomBuffer';
+import { Card } from '../components/Card/Card';
 import { useTodosList } from '../hooks/useTodosList';
+import { useTodosListNavigation } from '../hooks/useTodosListNavigation';
+
+export enum TodosListScreenTestID {
+  FilterDropDownID = 'FilterDropDownID',
+  CompletedStatsID = 'CompletedStatsID',
+  ScrollViewID = 'ScrollViewID',
+  CardID = 'CardID',
+  ScrollBottomBufferID = 'ScrollBottomBufferID',
+  FABID = 'FABID',
+}
 
 export const TodosListScreen: React.FC = () => {
   const {
@@ -14,20 +24,25 @@ export const TodosListScreen: React.FC = () => {
     allTodosCount,
     filterValue,
     setFilterValue,
-    handleAddTodoPress,
-    handleEditTodo,
     handleCompleteTodo,
     handleDeleteTodo,
   } = useTodosList();
 
+  const { handleAddTodo, handleEditTodo } = useTodosListNavigation();
+
   return (
     <>
-      <FilterDropDown onChange={setFilterValue} value={filterValue} />
-      <CompletedStats completed={completedTodosCount} total={allTodosCount} />
+      <FilterDropDown testID={TodosListScreenTestID.FilterDropDownID} onChange={setFilterValue} value={filterValue} />
+      <CompletedStats
+        testID={TodosListScreenTestID.CompletedStatsID}
+        completed={completedTodosCount}
+        total={allTodosCount}
+      />
 
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView testID={TodosListScreenTestID.ScrollViewID} showsVerticalScrollIndicator={false}>
         {todoItems.map(({ content, isDone, id }) => (
-          <TodoCardComponent
+          <Card
+            testID={TodosListScreenTestID.CardID}
             key={id}
             content={content}
             isDone={isDone}
@@ -36,10 +51,10 @@ export const TodosListScreen: React.FC = () => {
             onDonePress={() => handleCompleteTodo(id, !isDone)}
           />
         ))}
-        <ScrollBottomBuffer />
+        <ScrollBottomBuffer testID={TodosListScreenTestID.ScrollBottomBufferID} />
       </ScrollView>
 
-      <AddTodoFAB onPress={handleAddTodoPress} />
+      <AddFAB testID={TodosListScreenTestID.FABID} onPress={handleAddTodo} />
     </>
   );
 };

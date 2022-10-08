@@ -4,8 +4,8 @@ import { useCallback } from 'react';
 import { StackNavParamsList } from '../../../../common/navigation/model/NavigationTypes';
 import { ScreenName } from '../../../../common/config/ScreenName';
 import { useAppDispatch } from '../../../../common/store/hook/useAppDispatch';
-import { editTodoAction } from '../../store/todosActions';
-import { selectTodoById } from '../../store/todosSelectors';
+import { editTodoAction } from '../../slice/todosActions';
+import { selectTodoById } from '../../slice/todosSelectors';
 import { useAppSelector } from '../../../../common/store/hook/useAppSelector';
 
 export const useEditTodo = () => {

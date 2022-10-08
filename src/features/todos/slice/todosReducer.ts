@@ -1,7 +1,7 @@
 import { CaseReducer, createReducer, EntityState, nanoid, PayloadAction } from '@reduxjs/toolkit';
 import { Todo } from './model/Todo';
 import { AddTodoPayload, DeleteTodoPayload, EditTodoPayload, MarkTodoDonePayload } from './model/TodoActionsPayload';
-import { addTodoAction, deleteTodoAction, editTodoAction, completeTodoAction } from './todosActions';
+import { addTodoAction, deleteTodoAction, editTodoAction, completeTodoAction, resetReducer } from './todosActions';
 import { todosAdapter } from './todosAdapter';
 
 export type TodosState = EntityState<Todo>;
@@ -9,9 +9,9 @@ export type TodosState = EntityState<Todo>;
 const initialState = todosAdapter.getInitialState();
 
 const addTodoReducer: CaseReducer<TodosState, PayloadAction<AddTodoPayload>> = (state, { payload }) => {
-  const { content } = payload;
+  const { content, id } = payload;
   todosAdapter.addOne(state, {
-    id: nanoid(),
+    id: id || nanoid(),
     content,
     isDeleted: false,
     isDone: false,
@@ -38,4 +38,5 @@ export const todosReducer = createReducer(initialState, builder => {
   builder.addCase(editTodoAction, editTodoReducer);
   builder.addCase(deleteTodoAction, deleteTodoReducer);
   builder.addCase(completeTodoAction, completeTodoReducer);
+  builder.addCase(resetReducer, () => initialState);
 });
