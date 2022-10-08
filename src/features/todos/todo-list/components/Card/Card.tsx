@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Color } from '../../../../../common/config/Color';
-import { ButtonIcon, IconName } from '../ButtonIcon/ButtonIcon';
+import { ButtonIcon, IconName } from '../../../components/ButtonIcon/ButtonIcon';
 
 type CardProps = {
   content: string;
@@ -36,12 +36,23 @@ export const Card: React.FC<CardProps> = ({
       </Text>
       <View testID={CardTestID.ButtonsContainerID} style={styles.actionsContainer}>
         <ButtonIcon
+          style={styles.buttonIcon}
           testID={CardTestID.DoneButonID}
           iconName={isDone ? IconName.removeDone : IconName.done}
           onPress={onDonePress}
         />
-        <ButtonIcon testID={CardTestID.EditButonID} iconName={IconName.edit} onPress={onEditPress} />
-        <ButtonIcon testID={CardTestID.DeleteButonID} iconName={IconName.delete} onPress={onDeletePress} />
+        <ButtonIcon
+          style={styles.buttonIcon}
+          testID={CardTestID.EditButonID}
+          iconName={IconName.edit}
+          onPress={onEditPress}
+        />
+        <ButtonIcon
+          style={styles.buttonIcon}
+          testID={CardTestID.DeleteButonID}
+          iconName={IconName.delete}
+          onPress={onDeletePress}
+        />
       </View>
     </View>
   );
@@ -72,4 +83,5 @@ const styles = StyleSheet.create({
     textDecorationStyle: 'solid',
     opacity: 0.5,
   },
+  buttonIcon: { paddingLeft: 12 },
 });

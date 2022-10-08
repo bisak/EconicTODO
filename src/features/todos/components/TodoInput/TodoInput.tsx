@@ -1,17 +1,32 @@
 import React, { useCallback, useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { Color } from '../../../../common/config/Color';
+import { ButtonIcon, IconName } from '../ButtonIcon/ButtonIcon';
 
 type TodoInputProps = {
   defaultValue?: string;
   onSubmit: (textInputValue: string) => void;
   maxCharacters?: number;
+  testID?: string;
 };
 
-export const TodoInput: React.FC<TodoInputProps> = ({ onSubmit, defaultValue, maxCharacters = 300 }) => {
+export enum TodoInputTestID {
+  ContainerID = 'ContainerID',
+  RowID = 'RowID',
+  TextInputID = 'TextInputID',
+  ButtonID = 'ButtonID',
+  CharactersLeftID = 'CharactersLeftID',
+}
+
+export const TodoInput: React.FC<TodoInputProps> = ({
+  onSubmit,
+  defaultValue,
+  maxCharacters = 1000,
+  testID = TodoInputTestID.ContainerID,
+}) => {
   const [textInputValue, setTextInputValue] = useState(defaultValue);
   const trimmedContent = textInputValue?.trim();
+  const charactersCount = textInputValue?.length || 0;
 
   const handleValueChange = useCallback((newTodo: string) => {
     setTextInputValue(newTodo);
@@ -24,9 +39,10 @@ export const TodoInput: React.FC<TodoInputProps> = ({ onSubmit, defaultValue, ma
   }, [onSubmit, trimmedContent]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.row}>
+    <View testID={testID} style={styles.container}>
+      <View testID={TodoInputTestID.RowID} style={styles.row}>
         <TextInput
+          testID={TodoInputTestID.TextInputID}
           multiline
           autoFocus
           style={styles.textInput}
@@ -36,12 +52,16 @@ export const TodoInput: React.FC<TodoInputProps> = ({ onSubmit, defaultValue, ma
           onChangeText={handleValueChange}
           maxLength={maxCharacters}
         />
-        <TouchableOpacity disabled={!trimmedContent} style={styles.submitButton} onPress={handleSubmit}>
-          <Icon name="send" size={32} />
-        </TouchableOpacity>
+        <ButtonIcon
+          testID={TodoInputTestID.ButtonID}
+          iconName={IconName.send}
+          disabled={!trimmedContent}
+          style={styles.submitButton}
+          onPress={handleSubmit}
+        />
       </View>
-      <Text style={styles.charactersLeft}>
-        {textInputValue?.length || 0} of {maxCharacters}
+      <Text testID={TodoInputTestID.CharactersLeftID} style={styles.charactersLeft}>
+        {charactersCount} of {maxCharacters}
       </Text>
     </View>
   );

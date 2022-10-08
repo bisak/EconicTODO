@@ -24,7 +24,9 @@ describe('ButtonIcon', () => {
   });
 
   it('should render the touchable with correct styles', () => {
-    const { getByTestId } = render(<ButtonIcon iconName={IconName.done} onPress={() => {}} />);
+    const { getByTestId } = render(
+      <ButtonIcon iconName={IconName.done} style={{ paddingLeft: 12 }} onPress={() => {}} />,
+    );
     const touchable = getByTestId(ButtonIconTestID.TouchableID);
     expect(touchable).toHaveStyle({ paddingLeft: 12 });
   });
@@ -36,6 +38,7 @@ describe('ButtonIcon', () => {
         "done": "green",
         "edit": "goldenrod",
         "remove-done": "green",
+        "send": "white",
       }
     `);
   });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react-native';
+import { render } from '@testing-library/react-native';
 import { FilterDropDown, FilterDropDownTestID, filterOptions } from '../FilterDropDown';
 import { TodoFilter } from '../../../model/TodoFilter';
 
@@ -16,6 +16,7 @@ describe('FilterDropDown', () => {
     expect(view).toHaveStyle({
       marginHorizontal: 20,
       marginVertical: 8,
+      zIndex: 2,
     });
   });
 
@@ -23,19 +24,6 @@ describe('FilterDropDown', () => {
     const { getByTestId } = render(<FilterDropDown onChange={() => {}} value={TodoFilter.All} />);
     const dropDown = getByTestId(FilterDropDownTestID.DropDownPickerID);
     expect(dropDown).toBeTruthy();
-  });
-
-  it('should render a dropdown testtttss', () => {
-    const { getByTestId } = render(
-      <FilterDropDown
-        onChange={() => {
-          console.log('assssssss');
-        }}
-        value={TodoFilter.All}
-      />,
-    );
-    const dropDown = getByTestId(FilterDropDownTestID.DropDownPickerID);
-    fireEvent(dropDown, 'press');
   });
 
   it('should have correct default items', () => {
